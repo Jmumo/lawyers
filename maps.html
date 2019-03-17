@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>My First Google Map</h1>
+
+<div id="googleMap" style="width:50%;height:400px;"></div>
+
+<script>
+    function myMap() {
+        var mapProp = {
+            // center:new google.maps.LatLng(36.821945,-1.292066),
+            center: {lat:-1.292066,lng:36.821945},
+            zoom:7,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+         var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+        var marker = new google.maps.Marker({
+            position:new google.maps.LatLng(36.821945,-1.292066),
+            animation:google.maps.Animation.BOUNCE
+        });
+
+        marker.setMap(map);
+
+    }
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDVh4514r3klV5kkbJPx7In0M6snwwhOAE&callback=myMap"></script>
+<div>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d255282.
+    32374894439!2d36.707306905669036!3d-1.3032050559394015!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13
+    .1!3m3!1m2!1s0x182f1172d84d49a7%3A0xf7cf0254b297924c!2sNairobi!5e0!3m2!1sen!2ske!4v1549834155867" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+</div>
+</body>
+</html>

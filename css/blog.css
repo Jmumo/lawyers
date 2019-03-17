@@ -1,0 +1,12 @@
+#footer{
+    padding: 10px;
+    border-top:1px solid black;
+    color: #EEEEEE;
+    background-color: #211f22;
+    text-align: center;
+}
+#desc{
+    margin-top: 2px;
+    font-weight: bold;
+    color: #868686;
+}
