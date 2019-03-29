@@ -1,6 +1,6 @@
 <?php
 require_once 'database.php';
-require_once ("includes/sessions.php");
+require_once("includes/sessions.php");
 ?>
 <html>
 <head>
@@ -13,7 +13,7 @@ require_once ("includes/sessions.php");
 <style>
     .rounded {
         width: 300px;
-        height:350px;
+        height: 350px;
         border: solid 1px black;
     }
 
@@ -42,7 +42,7 @@ require_once ("includes/sessions.php");
                 <a class="nav-link" href="news.php">News</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Contact</a>
+                <a class="nav-link" href="maps.html">Contact</a>
             </li>
         </ul>
 
@@ -57,8 +57,9 @@ require_once ("includes/sessions.php");
             foreach ($fetched as $row) {
                 echo <<<END
                 <div class="img-thumbnail col-lg-4">
-<img  src="photos/$row[2]" class="rounded"><br>
+<img  src="photos/$row[2]" class="rounded ml-3"><br>
 <span style='font-size: 20px ;font-family: Algerian'>&nbsp;&nbsp;&nbsp;&nbsp;$row[1]<br></span>
+
                 </div>
 END;
 

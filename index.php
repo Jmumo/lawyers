@@ -1,3 +1,8 @@
+<?php
+require_once 'database.php';
+require_once("includes/sessions.php");
+require_once("includes/redirect.php");
+?>
 <html>
 <head>
     <title></title>
@@ -35,7 +40,7 @@
                 <a class="nav-link" href="news.php">News</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Contact</a>
+                <a class="nav-link" href="maps.html">Contact</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="registry.home.php">Registry</a>
@@ -44,18 +49,19 @@
 
     </div>
 </nav>
+<div><?php echo success(); ?></div>
 <div class="center">
-<section class="landing">
-    <div class="inner-landing">
-        <div class="greeting"></div>
-        <div class="today_date"></div>
-        <div class="countdown"></div>
-        <p> welcome to inc law for best legal solutions</p>
+    <section class="landing">
+        <div class="inner-landing">
+            <div class="greeting"></div>
+            <div class="today_date"></div>
+            <div class="countdown"></div>
+            <p> welcome to inc law for best legal solutions</p>
 
-    </div>
+        </div>
 
-</section>
-<script src="js/index.js"></script>
+    </section>
+    <script src="js/index.js"></script>
 
 </div>
 <div class="fixed-bottom text-success text-hide">

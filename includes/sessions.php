@@ -7,10 +7,11 @@ function message()
         $output = "<div class='alert alert-danger'>";
         $output .= htmlentities($_SESSION["error message"]);
         $output . "</div>";
-        $_SESSION["error message"]=null;
+        $_SESSION["error message"] = null;
         return $output;
     }
 }
+
 function success()
 {
 
@@ -18,7 +19,7 @@ function success()
         $output = "<div class='alert alert-success'>";
         $output .= htmlentities($_SESSION["error message"]);
         $output . "</div>";
-        $_SESSION["error message"]=null;
+        $_SESSION["error message"] = null;
         return $output;
     }
 }

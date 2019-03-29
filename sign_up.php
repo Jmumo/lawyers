@@ -1,7 +1,7 @@
 <?php
 require_once 'database.php';
-require_once ("includes/sessions.php");
-require_once ("includes/redirect.php");
+require_once("includes/sessions.php");
+require_once("includes/redirect.php");
 ?>
 <html>
 <head>
@@ -43,13 +43,14 @@ require_once ("includes/redirect.php");
                 'username' => $_POST["username"],
                 'email' => $_POST["email"],
                 'password' => $_POST["password"],
-                'confirm_paasword' => $_POST["confirm_password"]
+                'confirm_paasword' => $_POST["confirm_password"],
+                'approve' => "false",
             );
             $dbcon->insertdata("sign", $data);
-           if($dbcon){
-               header("location:login.php");
-               $_SESSION["error message"]="successfully signed up you can now log in";
-           }
+            if ($dbcon) {
+                header("location:login.php");
+                $_SESSION["error message"] = "successfully signed up you can now log in";
+            }
         }
         ?>
     </div>

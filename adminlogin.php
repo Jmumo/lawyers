@@ -1,7 +1,7 @@
 <?php
 require_once 'database.php';
-require_once ("includes/sessions.php");
-require_once ("includes/redirect.php");
+require_once("includes/sessions.php");
+require_once("includes/redirect.php");
 ?>
 
 <html>
@@ -17,7 +17,7 @@ require_once ("includes/redirect.php");
         </div>
         <form action="adminlogin.php" method="post">
             <div class="panel-body">
-                <div><?php echo success();?></div>
+                <div><?php echo success(); ?></div>
                 <div class="form-group">
                     <label for="username">username:</label>
                     <input class="form-control" type="text" id="username" name="username" required>
@@ -47,16 +47,16 @@ require_once ("includes/redirect.php");
         $fetched = $dbcon->admin_login("admins", $data);
 
 
-        if ($fetched > 0){
-            $_SESSION["username"]=$_POST["username"];
+        if ($fetched > 0) {
+            $_SESSION["username"] = $_POST["username"];
             echo $_SESSION["username"];
 
             header("location:home.admin.php");
 
-            var_dump( $_SESSION["username"]);
-        }else{
+            var_dump($_SESSION["username"]);
+        } else {
 
-                $_SESSION["error message"]="your are not a registered admin";
+            $_SESSION["error message"] = "your are not a registered admin";
 
         }
 

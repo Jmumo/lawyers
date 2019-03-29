@@ -1,6 +1,9 @@
 <?php
 require_once 'database.php';
 require_once("includes/sessions.php");
+if(!isset($_SESSION["user"])){
+    redirect_to("login.php");
+}
 ?>
 <html>
 <head>
@@ -38,9 +41,10 @@ require_once("includes/sessions.php");
     #title:hover {
         color: #0090db;
     }
-    #btnn{
+
+    #btnn {
         float: right;
-        margin-right: 30%;
+        margin-right: 7%;
     }
 
 </style>
@@ -62,10 +66,11 @@ require_once("includes/sessions.php");
             <li class="nav-item">
                 <a class=" nav-link" href="lawyers.board.php">Notice board</a>
             </li>
+
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="search">Search</button>
+        <form class="form-inline my-2 my-lg-0" action="blog.home.php" method="GET">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" name="search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="submit">Search</button>
         </form>
     </div>
 </nav>
@@ -83,43 +88,55 @@ require_once("includes/sessions.php");
     </div>
 
     <div class="row">
-        <div class="container col-lg-12">
+        <div class="container col-lg-8 ml-1">
             <table class="table table-hover  ">
                 <?php
+                if (isset($_GET["submit"])) {
+                    $data = array(
+                        'search' => '%' . $_GET["search"] . '%',
+                    );
+                    $fetched = $dbcon->search("blogs", $data);
+                } else {
 
-                $fetched = $dbcon->fetchdata("blogs");
-                foreach ($fetched
+                    $fetched = $dbcon->fetchdata("blogs");
+                }
+                foreach ($fetched as $row) {
+                    $post_id = $row[0];
+                    $image = $row[3];
+                    $author = $row[2];
+                    $date = $row[4];
+                    $post = $row[1];
+                    $title = $row[5];
+                    if (strlen($post) > 90) {
+                        $post = substr($post, 0, 90) . "....";
 
-                as $row) {
-                $post_id = $row[0];
-                $image = $row[3];
-                $author = $row[2];
-                $date = $row[4];
-                $post = $row[1];
-                $title = $row[5];
-                if (strlen($post) > 90) {
-                    $post = substr($post, 0, 90) . "....";
-
-                    ?>
-                    <tr>
-                        <td><img src="blog/<?php echo $image ?>" class="rounded img-thumbnail"><br>
-                            <span id='title'><h1>&nbsp;<?php echo $title ?></h1></span><br>
-                            <span id='desc'><span>&nbsp;&nbsp;&nbsp;&nbsp;By:</span>&nbsp;<?php echo $author . $date ?></span><br>
-                            <span id='post'>&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $post ?></span><br>
-                            <a href='fullpost.php?id=<?php echo $post_id;?>'<span id="btnn" class='btn btn-info btn-sm'>read
+                        ?>
+                        <tr>
+                            <td><img src="blog/<?php echo $image ?>" class="rounded img-thumbnail"><br>
+                                <span id='title'><h1>&nbsp;<?php echo $title ?></h1></span><br>
+                                <span id='desc'><span>&nbsp;&nbsp;&nbsp;&nbsp;By:</span>&nbsp;<?php echo $author . $date ?></span><br>
+                                <span id='post'>&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $post ?></span><br>
+                                <a href='fullblog.php?id=<?php echo $post_id; ?>'<span id="btnn"
+                                                                                       class='btn btn-info btn-sm'
+                                                                                       name="more">read
                                 more &rsaquo;&rsaquo;&rsaquo;</span></a>
-                        </td>
+                            </td>
 
 
-                    </tr>
+                        </tr>
 
-                <?php }} ?>
+                    <?php }
+                } ?>
+                <tr>
 
             </table>
         </div>
-
-
+        <div class="col-lg-3">
+            <p>egwfuheinckncneifniwencnienincniencinenfeufjnmscnenfiecneknck</p>
+           hhhhhhjhhhhhh<label>news</label> <span class="badge badge-pill badge-primary">4</span>
+        </div>
     </div>
+
 </div>
 
 <div id="footer">
@@ -131,9 +148,7 @@ require_once("includes/sessions.php");
 </div>
 
 
-<script src="boot/bootstrap/js/jquery-3.3.1.js"></script>
-<script src="boot/bootstrap/js/popper.js"></script>
-<script src="boot/bootstrap/js/bootstrap.js"></script>
+
 <div>
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -226,4 +241,7 @@ require_once("includes/sessions.php");
     </div>
 
 </body>
+<script src="boot/bootstrap/js/jquery-3.3.1.js"></script>
+<script src="boot/bootstrap/js/popper.js"></script>
+<script src="boot/bootstrap/js/bootstrap.js"></script>
 </html>

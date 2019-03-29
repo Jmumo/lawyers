@@ -1,7 +1,7 @@
 <?php
 require_once 'database.php';
-require_once ("includes/sessions.php");
-require_once ("includes/redirect.php");
+require_once("includes/sessions.php");
+require_once("includes/redirect.php");
 ?>
 
 <html>
@@ -17,8 +17,8 @@ require_once ("includes/redirect.php");
         </div>
         <form action="login.php" method="post">
             <div class="panel-body">
-<!--                <div>--><?php //echo success();?><!--</div>-->
-                <div class="form-group" >
+                <!--                <div>--><?php //echo success();?><!--</div>-->
+                <div class="form-group">
                     <label for="username">username:</label>
                     <input class="form-control" type="text" id="username" name="username" required>
                 </div>
@@ -48,19 +48,20 @@ require_once ("includes/redirect.php");
             ':password' => $_POST["password"],
         );
         $fetched = $dbcon->login("sign", $data);
-      foreach ($fetched as $fetched){
-          $_SESSION["user"]=$fetched[0];
-      }
-       if ($fetched){
+        foreach ($fetched as $fetched) {
+            $_SESSION["user"] = $fetched[1];
+        }
+        if ($fetched) {
 
-                $_SESSION["error message"]="successful login.....".$_SESSION["user"];
-                header("location:lawyers.home.php");
+            $_SESSION["error message"] = "successful login....." . $_SESSION["user"];
+
+            header("location:lawyers.home.php");
 //                redirect_to("lawyers.home.php");
-            }else{
-                header("sign_up.php");
+        } else {
+            header("sign_up.php");
 //                $_SESSION["error message"]="username not found sign up to login";
 
-       }
+        }
 //
     }
 

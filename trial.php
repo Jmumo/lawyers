@@ -1,4 +1,3 @@
-
 <html>
 <head>
     <link rel="stylesheet" href="boot/bootstrap/css/bootstrap.min.css">
@@ -27,21 +26,23 @@
     </a>
 </div>
 
-      <?php
-if( isset($_POST["submit"])){
-    $current=$_POST["date"];
+<?php
+if (isset($_POST["submit"])) {
+    $current = $_POST["date"];
     echo $current;
-    $time=time();
-  $def=$current-$time;
-  $now=$def/3600;
-  echo $now;
+    $time = time();
+    $def = $current - $time;
+    $now = $def / 3600;
+    echo $now;
 }
 
 ?>
 <!-- Modal -->
 
 </script>
-<script src="boot/bootstrap/js/jquery-3.3.1.js"></script>
+<
+script
+src = "boot/bootstrap/js/jquery-3.3.1.js" ></script>
 <script src="boot/bootstrap/js/popper.js"></script>
 <script src="boot/bootstrap/js/bootstrap.js"></script>
 </body>

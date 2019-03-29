@@ -1,6 +1,9 @@
 <?php
 require_once 'database.php';
-require_once ("includes/sessions.php");
+require_once("includes/sessions.php");
+if(!isset($_SESSION["user"])){
+    redirect_to("login.php");
+}
 ?>
 <html>
 <head>
@@ -41,7 +44,12 @@ require_once ("includes/sessions.php");
                                 <a href="admins.php" class="text-white text-center nav-link ">Manage admins</a>
                             </li>
                             <li class="current sidebar-link text-center mb-2">
-                                <a href="admin.expertise.php" class="text-white text-center nav-link">Manage expertise</a>
+                                <a href="admin.expertise.php" class="text-white text-center nav-link">Manage
+                                    expertise</a>
+                            </li>
+                            <li class="sidebar-link text-center mb-2">
+                                <a href="manageaccess.php" class="text-white text-center nav-link">manage
+                                    access</a>
                             </li>
 
                         </ul>
@@ -53,8 +61,8 @@ require_once ("includes/sessions.php");
                 <!--                top bar-->
                 <div class="col-md-9 ml-auto details " style="overflow: scroll; height: 100%">
                     <form action="admin.expertise.php" method="post" enctype="multipart/form-data">
-                        <div><?php echo success();?></div>
-                        <div><?php echo message();?></div>
+                        <div><?php echo success(); ?></div>
+                        <div><?php echo message(); ?></div>
                         <div>
                             <h3 class="page-header">Manage expertise</h3>
 
@@ -78,6 +86,7 @@ require_once ("includes/sessions.php");
                                     <th>ID</th>
                                     <th>Name</th>
                                     <th>Image</th>
+                                    <th>control</th>
 
                                 </tr>
                                 </thead>
@@ -85,12 +94,14 @@ require_once ("includes/sessions.php");
 
                                 $fetched = $dbcon->fetchdata("expertise");
                                 foreach ($fetched as $row) {
+                                    $id = $row[0];
                                     echo "<tr>
       
                     
                      <td>$row[0]</td>
                      <td>$row[1]</td>
                      <td><img src=\"photos /$row[2]\"class=\"rounded\"><br></td>
+                      <td><a href='delete_expertise.php?id={$id};'> <button class='btn-sm btn-danger' name='id'>delete</button></a></td>
                     
                      
             </tr>";
@@ -101,66 +112,66 @@ require_once ("includes/sessions.php");
                             </table>
                         </div>
 
-                    <footer class="ml-auto">
-                        <div class="container-fluid text-center mt-4">
-<span >
+                        <footer class="ml-auto">
+                            <div class="container-fluid text-center mt-4">
+<span>
     <hr><p>Theme by mumo| &copf;&nbsp;2019--2022|----all rights reserved</p>
 
 
 </span>
-                        </div>
-                    </footer>
-                </div>
+                            </div>
+                        </footer>
+                    </div>
 
 
 </nav>
 
 
-                <?php
-                if (isset($_POST["submit"])) {
-                    function getExtension($str)
-                    {
-                        $i = strrpos($str, ".");
-                        if (!$i) {
-                            return "";
-                        }
-                        $l = strlen($str) - $i;
-                        $ext = substr($str, $i + 1, $l);
-                        return $ext;
-                    }
+<?php
+if (isset($_POST["submit"])) {
+    function getExtension($str)
+    {
+        $i = strrpos($str, ".");
+        if (!$i) {
+            return "";
+        }
+        $l = strlen($str) - $i;
+        $ext = substr($str, $i + 1, $l);
+        return $ext;
+    }
 
-                    $filename = stripslashes($_FILES['image']['name']);    // get the original name
+    $filename = stripslashes($_FILES['image']['name']);    // get the original name
 // get the extension of the file in a lower case format
-                    $extension = getExtension($filename);
-                    $extension = strtolower($extension);
-                    $image_name = time() . '.' . $extension; //we will give an unique name
-                    $newname = 'photos/' . $image_name;
-                    $data = array(
+    $extension = getExtension($filename);
+    $extension = strtolower($extension);
+    $image_name = time() . '.' . $extension; //we will give an unique name
+    $newname = 'photos/' . $image_name;
+    $data = array(
 
 
-                        'name' => $_POST["department"],
-                        'photo' => $image_name
-                    );
-                    echo $dbcon->insertdata("expertise", $data);
-                    if ($dbcon){
-                        $_SESSION["error message"]="successfully added";
-                    }
+        'name' => $_POST["department"],
+        'photo' => $image_name
+    );
+    echo $dbcon->insertdata("expertise", $data);
+    if ($dbcon) {
+        $_SESSION["error message"] = "successfully added";
+    }
 
 //            Process Image
 
-                    $copied = copy($_FILES['image']['tmp_name'], $newname);
+    $copied = copy($_FILES['image']['tmp_name'], $newname);
 
-                    if (!$copied) {
+    if (!$copied) {
 //                $msg=base64_encode("Unsuccessful.");
 //                header("Location: index.php?error=$msg");
-                        $_SESSION["error message"]="poor image format";
-                    }// header("location:public.php");
-                    ;
-                }
-                ?>
-            </div>
+        $_SESSION["error message"] = "poor image format";
+    }// header("location:public.php");
+    ;
+}
+?>
+</div>
 
-    </div>
+</div>
 <script src="boot/bootstrap/js/jquery-3.3.1.js"></script>
 <script src="boot/bootstrap/js/popper.js"></script>
 <script src="boot/bootstrap/js/bootstrap.js"></script>

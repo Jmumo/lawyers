@@ -49,7 +49,7 @@ class database
 
     function delete($table, $value)
     {
-        $sql2 = sprintf("delete from %s where %s = %s",
+        $sql2 = sprintf("delete * from %s where %s = %s",
             $table,
             implode(",", array_keys($value)),
             ":" . implode(",:", array_keys($value))
@@ -72,10 +72,11 @@ class database
             echo $e->getMessage();
         }
     }
+
     function update_law($table, $post)
     {
         try {
-            $stmt = $this->connection->prepare("update $table set lawyer=:lawyer where id=:id");
+            $stmt = $this->connection->prepare("update $table set lawyer=:lawyer where id=:id ");
             $stmt->execute($post);
 
         } catch (Exception $e) {
@@ -86,16 +87,18 @@ class database
     function login($table, $post)
     {
         try {
-            $stmt = $this->connection->prepare("select * from $table where username=:username and password=:password");
+            $stmt = $this->connection->prepare("select * from $table where username=:username and password=:password and approve='true'");
             $stmt->execute($post);
 //            $result = $stmt->rowCount();
-            $result=$stmt->fetchall();
+            $result = $stmt->fetchall();
             return $result;
         } catch (Exception $e) {
             echo $e->getMessage();
         }
     }
-    function admin_login($table, $post){
+
+    function admin_login($table, $post)
+    {
         try {
             $stmt = $this->connection->prepare("select * from $table where username=:username and password=:password");
             $stmt->execute($post);
@@ -105,7 +108,114 @@ class database
             echo $e->getMessage();
         }
     }
+
+    function fullblog($table, $post)
+    {
+        try {
+            $stmt = $this->connection->prepare("select * from $table where id=:id");
+            $stmt->execute($post);
+//            $result = $stmt->rowCount();
+            $result = $stmt->fetchall();
+            return $result;
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    function search($table, $post)
+    {
+        try {
+            $stmt = $this->connection->prepare("select * from $table where title like :search or post like :search;");
+            $stmt->execute($post);
+            $result = $stmt->fetchall();
+            return $result;
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    function fetch_case($table, $post)
+    {
+        try {
+            $stmt = $this->connection->prepare("select * from $table where lawyer like :username;");
+            $stmt->execute($post);
+            $result = $stmt->fetchall();
+            return $result;
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    }
+    function fetch_new($table, $post)
+    {
+        try {
+            $stmt = $this->connection->prepare("select * from $table where lawyer like :username and sign ='false';");
+            $stmt->execute($post);
+            $result = $stmt->rowcount();
+            return $result;
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    function fetch_comments($table, $post)
+    {
+        try {
+            $stmt = $this->connection->prepare("select * from $table where bindex=:id;");
+            $stmt->execute($post);
+            $result = $stmt->fetchall();
+            return $result;
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    function admin_delete($table, $post)
+    {
+        try {
+            $stmt = $this->connection->prepare("delete from $table where id=:id;");
+            $stmt->execute($post);
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    function approve($table, $post)
+    {
+        try {
+            $stmt = $this->connection->prepare("update $table set approve=:approve where id=:id");
+            $stmt->execute($post);
+
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    function fetch_approve($table)
+    {
+        try {
+            $stmt = $this->connection->prepare("select * from $table where approve='true'");
+            $stmt->execute();
+//            $result = $stmt->rowCount();
+            $result = $stmt->fetchall();
+            return $result;
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    function insert_sign($table, $post)
+    {
+        try {
+            $stmt = $this->connection->prepare("update $table set sign = :sign where id=:id");
+            $stmt->execute($post);
+
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    }
+
 }
 
 $dbcon = new database();
+
 

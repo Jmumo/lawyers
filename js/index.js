@@ -1,6 +1,6 @@
 const countdown = document.querySelector('.countdown');
 const today_date = document.querySelector('.today_date');
-const  greeting = document.querySelector('.greeting');
+const greeting = document.querySelector('.greeting');
 
 greeting.style.color = '#17a2b8';
 today_date.style.color = '#17a2b8';
@@ -12,12 +12,12 @@ const intvl = setInterval(() => {
     const time_hours = time_now.getHours();
     const time_mins = time_now.getMinutes();
     const time_secs = time_now.getSeconds();
-    var time_greet  = '';
+    var time_greet = '';
 
     if (time_hours == 1 && time_hours < 6) {
         time_greet = "How is the night going";
     }
-    if (time_hours == 6 || time_hours < 12){
+    if (time_hours == 6 || time_hours < 12) {
         time_greet = "Good Morning";
     }
     else if (time_hours == 12 || time_hours < 17) {
@@ -31,21 +31,19 @@ const intvl = setInterval(() => {
     }
 
 
-
-
     //Display Results
     greeting.innerHTML = `
     <div><h1>${time_greet} </h1></div>
     `;
-    greeting.style.color='#ffffff';
+    greeting.style.color = '#ffffff';
 
 
     //Display Results
     today_date.innerHTML = `
     <div><h1>${time_date}</h1></div>
     `;
-    today_date.style.color='#ffffff';
-    today_date.style.fontFamily='ALGERIAN';
+    today_date.style.color = '#ffffff';
+    today_date.style.fontFamily = 'ALGERIAN';
 
     countdown.innerHTML = `
     <div>${time_hours}<span>hours</span></div>
@@ -53,8 +51,7 @@ const intvl = setInterval(() => {
     <div>${time_secs}<span>secs</span></div>
     
     `;
-    countdown.style.color='#ffffff';
-
+    countdown.style.color = '#ffffff';
 
 
 }, 1000);

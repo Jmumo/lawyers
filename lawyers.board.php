@@ -1,6 +1,10 @@
 <?php
 require_once 'database.php';
-
+require_once("includes/sessions.php");
+require_once("includes/redirect.php");
+if(!isset($_SESSION["user"])){
+    redirect_to("login.php");
+}
 ?>
 <html>
 <head>
@@ -68,7 +72,9 @@ require_once 'database.php';
 
 </div>
 </script>
-<script src="boot/bootstrap/js/jquery-3.3.1.js"></script>
+<
+script
+src = "boot/bootstrap/js/jquery-3.3.1.js" ></script>
 <script src="boot/bootstrap/js/popper.js"></script>
 <script src="boot/bootstrap/js/bootstrap.js"></script>
 </body>

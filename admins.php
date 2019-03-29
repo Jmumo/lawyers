@@ -1,7 +1,10 @@
 <?php
 require_once 'database.php';
-require_once ("includes/sessions.php");
-require_once ("includes/redirect.php");
+require_once("includes/sessions.php");
+require_once("includes/redirect.php");
+if(!isset($_SESSION["user"])){
+    redirect_to("login.php");
+}
 ?>
 <html>
 <head>
@@ -35,8 +38,17 @@ require_once ("includes/redirect.php");
                                 <a href="admins.php" class="text-white text-center nav-link ">manage admins</a>
                             </li>
                             <li class="sidebar-link text-center mb-2">
-                                <a href="admin.expertise.php" class="text-white text-center nav-link">manage expertise</a>
+                                <a href="admin.expertise.php" class="text-white text-center nav-link">manage
+                                    expertise</a>
                             </li>
+                            <li class="sidebar-link text-center mb-2">
+                                <a href="manageaccess.php" class="text-white text-center nav-link">manage
+                                    access</a>
+                            </li>
+                            <li class="sidebar-link text-center mb-2">
+                                <a href="index.php" class="text-white text-center nav-link">log out</a>
+                            </li>
+
 
                         </ul>
                     </div>
@@ -47,7 +59,7 @@ require_once ("includes/redirect.php");
                 <!--                top bar-->
                 <div class="col-md-9 ml-auto details " style="overflow: scroll; height: 100%">
                     <form action="admins.php" method="post" enctype="multipart/form-data">
-                        <div><?php echo success();?></div>
+                        <div><?php echo success(); ?></div>
                         <h3 class="page-header">manage admins</h3>
                         <div class="form-group">
                             <label for="name"><span class="">username:</span></label>
@@ -78,6 +90,7 @@ require_once ("includes/redirect.php");
                                         <th>ID</th>
                                         <th>Username</th>
                                         <th>Password</th>
+                                        <th>control</th>
 
                                     </tr>
                                     </thead>
@@ -85,12 +98,14 @@ require_once ("includes/redirect.php");
 
                                     $fetched = $dbcon->fetchdata("admins");
                                     foreach ($fetched as $row) {
+                                        $id = $row[0];
                                         echo "<tr>
       
                     
                      <td>$row[0]</td>
                      <td>$row[1]</td>
                      <td>$row[2]</td>
+                      <td><a href='deleteadmin.php?id={$id};'> <button class='btn-sm btn-danger' name='id'>delete</button></a></td>
                      
             </tr>";
                                     }
@@ -99,7 +114,7 @@ require_once ("includes/redirect.php");
                                     </tr>
                                 </table>
                             </div>
-<span >
+                            <span>
     <hr><p>Theme by mumo| &copf;&nbsp;2019--2022|----all rights reserved</p>
 
 

@@ -1,6 +1,9 @@
 <?php
 require_once 'database.php';
-require_once ("includes/sessions.php");
+require_once("includes/sessions.php");
+if(!isset($_SESSION["user"])){
+    redirect_to("login.php");
+}
 ?>
 <html>
 <head>
@@ -36,6 +39,14 @@ require_once ("includes/sessions.php");
                             <li class="sidebar-link text-center mb-2">
                                 <a href="admin.expertise.php" class="text-white text-center nav-link">add expertise</a>
                             </li>
+                            <li class="sidebar-link text-center mb-2">
+                                <a href="manageaccess.php" class="text-white text-center nav-link">manage
+                                    access</a>
+                            </li>
+                            <li class="sidebar-link text-center mb-2">
+                                <a href="index.php" class="text-white text-center nav-link">log out</a>
+                            </li>
+
 
                         </ul>
                     </div>
@@ -46,7 +57,7 @@ require_once ("includes/sessions.php");
                 <!--                top bar-->
                 <div class="col-md-9 ml-auto details " style="overflow: scroll; height: 100%">
                     <form action="lawyers.news.php" method="post" enctype="multipart/form-data">
-                        <div><?php echo success();?></div>
+                        <div><?php echo success(); ?></div>
                         <div>
                             <h3 class="page-header">Post to lawyers notice board</h3>
 
@@ -60,22 +71,21 @@ require_once ("includes/sessions.php");
                     </form>
 
 
-
                     <?php
                     if (isset($_POST["submit"])) {
-                        $time=date("D/M/Y");
+                        $time = date("D/M/Y");
 
                         $data = array(
 
-                            'author' =>"admin",
+                            'author' => "admin",
                             'message' => $_POST["description"],
-                            'date' =>$time,
+                            'date' => $time,
 
 
                         );
                         echo $dbcon->insertdata("notice", $data);
-                        if ($dbcon){
-                            $_SESSION["error message"]="successfully added";
+                        if ($dbcon) {
+                            $_SESSION["error message"] = "successfully added";
                         }
 
 //                       header("location:index.php");
@@ -114,20 +124,19 @@ require_once ("includes/sessions.php");
                             </table>
                         </div>
 
-                    <footer class="ml-auto">
-                        <div class="container-fluid text-center mt-4">
-<span >
+                        <footer class="ml-auto">
+                            <div class="container-fluid text-center mt-4">
+<span>
     <hr><p>Theme by mumo| &copf;&nbsp;2019--2022|----all rights reserved</p>
 
 
 </span>
-                        </div>
-                    </footer>
-                </div>
+                            </div>
+                        </footer>
+                    </div>
 
 
 </nav>
-
 
 
 </div>
